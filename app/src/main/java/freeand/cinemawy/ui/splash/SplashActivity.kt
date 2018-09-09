@@ -1,13 +1,14 @@
 package freeand.cinemawy.ui.splash
 
+import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.os.Handler
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import freeand.cinemawy.R
+import freeand.cinemawy.databinding.ActivitySplashBinding
 import freeand.cinemawy.ui.base.BaseActivity
 import freeand.cinemawy.ui.home.HomeActivity
-import android.databinding.DataBindingUtil
-import freeand.cinemawy.databinding.ActivitySplashBinding
 
 class SplashActivity : BaseActivity() {
 
@@ -25,9 +26,10 @@ class SplashActivity : BaseActivity() {
             }
 
             override fun onAnimationEnd(animation: Animation) {
-
-                goToActivity(HomeActivity::class.java, null)
-                finish()
+                Handler().postDelayed({
+                    goToActivity(HomeActivity::class.java, null)
+                    finish()
+                }, 800)
             }
 
             override fun onAnimationRepeat(animation: Animation) {

@@ -9,4 +9,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- Splash theme. -->
+
+    <style name="AppTheme.Fullscreen" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
 </resources>
