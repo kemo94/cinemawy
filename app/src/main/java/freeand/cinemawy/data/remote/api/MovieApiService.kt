@@ -13,9 +13,6 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 
-/**
- * Created by oq-dev on 9/3/2018.
- */
 
 interface MovieApiService {
 

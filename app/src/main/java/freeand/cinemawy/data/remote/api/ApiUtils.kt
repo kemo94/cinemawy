@@ -2,9 +2,6 @@ package freeand.cinemawy.data.remote.api
 
 import freeand.cinemawy.BuildConfig
 
-/**
- * Created by oq-dev on 9/3/2018.
- */
 
 object ApiUtils {
 

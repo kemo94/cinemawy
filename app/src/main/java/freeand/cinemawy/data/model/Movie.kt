@@ -1,65 +1,70 @@
 package freeand.cinemawy.data.model
 
-import com.google.gson.annotations.SerializedName
-
-/**
- * Created by oq-dev on 9/3/2018.
- */
+import android.os.Parcel
+import android.os.Parcelable
 
 
-class Movie {
+class Movie(
+        val poster_path: String,
+        val overview: String,
+        val release_date: String,
+        val id: Long = 0,
+        val title: String,
+        val backdropPath: String,
+        val popularity: Double,
+        val vote_count: Long,
+        val vote_average: Double,
+        val homepage: String,
+        val runtime: Long = 0,
+        val budget: Long = 0,
+        val tagline: String,
+        val status: String
 
-    @SerializedName("poster_path")
-    val posterPath: String? = null
+) : Parcelable {
+    constructor(parcel: Parcel) : this(
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readLong(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readDouble(),
+            parcel.readLong(),
+            parcel.readDouble(),
+            parcel.readString(),
+            parcel.readLong(),
+            parcel.readLong(),
+            parcel.readString(),
+            parcel.readString())
 
-    @SerializedName("adult")
-    val isAdult: Boolean = false
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(poster_path)
+        parcel.writeString(overview)
+        parcel.writeString(release_date)
+        parcel.writeLong(id)
+        parcel.writeString(title)
+        parcel.writeString(backdropPath)
+        parcel.writeDouble(popularity)
+        parcel.writeLong(vote_count)
+        parcel.writeDouble(vote_average)
+        parcel.writeString(homepage)
+        parcel.writeLong(runtime)
+        parcel.writeLong(budget)
+        parcel.writeString(tagline)
+        parcel.writeString(status)
+    }
 
-    @SerializedName("overview")
-    val overview: String? = null
+    override fun describeContents(): Int {
+        return 0
+    }
 
-    @SerializedName("release_date")
-    val releaseDate: String? = null
+    companion object CREATOR : Parcelable.Creator<Movie> {
+        override fun createFromParcel(parcel: Parcel): Movie {
+            return Movie(parcel)
+        }
 
-    @SerializedName("id")
-    val id: Long = 0
-
-    @SerializedName("title")
-    val title: String? = null
-
-    @SerializedName("backdrop_path")
-    val backdropPath: String? = null
-
-    @SerializedName("popularity")
-    val popularity: Double = 0.toDouble()
-
-    @SerializedName("vote_count")
-    val voteCount: Long = 0
-
-    @SerializedName("video")
-    val isVideo: Boolean = false
-
-    @SerializedName("vote_average")
-    val voteAverage: Double = 0.toDouble()
-
-    @SerializedName("imdb_id")
-    val imdbId: String? = null
-
-    @SerializedName("homepage")
-    val homepageUrl: String? = null
-
-    @SerializedName("runtime")
-    val runtime: Long = 0
-
-    @SerializedName("budget")
-    val budget: Long = 0
-
-
-    @SerializedName("tagline")
-    val tagline: String? = null
-
-    @SerializedName("status")
-    val status: String? = null
-
-
+        override fun newArray(size: Int): Array<Movie?> {
+            return arrayOfNulls(size)
+        }
+    }
 }
