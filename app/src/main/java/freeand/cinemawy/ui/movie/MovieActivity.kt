@@ -15,8 +15,10 @@ class MovieActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val movie =  intent.getParcelableExtra<Movie>("movie")
+        movieViewModel = MovieViewModel(movie)
 
         val binding = DataBindingUtil.setContentView<ActivityMovieBinding>(this, R.layout.activity_movie)
         binding.viewModel = movieViewModel
+
     }
 }

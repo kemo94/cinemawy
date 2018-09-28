@@ -18,38 +18,87 @@
         tools:context="com.segunfamisa.sample.mvvm.ui.moviedetails.MovieDetailsFragment">
 
         <!-- appbar -->
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/appbar"
-            android:layout_width="match_parent"
-            android:layout_height="200dp">
 
-            <!-- collapsing toolbar -->
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="270dp"
+            android:background="@color/colorWhite"
+            android:fitsSystemWindows="true"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
             <android.support.design.widget.CollapsingToolbarLayout
                 android:id="@+id/collapsingToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleMarginStart="8dp"
+                app:expandedTitleTextAppearance="@style/LargeText"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
                 app:title="@{ viewModel.movieTitle }">
 
-                <!-- movie backdrop -->
-                <ImageView
-                    android:id="@+id/movieBackdrop"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    app:layout_collapseMode="parallax"
-                    bind:imageUrl="@{ viewModel.backdropUrl }" />
 
-                <!-- toolbar -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/images_pager"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp" />
+
+
+                    <ImageView
+                        android:id="@+id/layer_imv"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        app:srcCompat="@drawable/rectangle_layer" />
+
+                    <ImageView
+                        bind:imageUrl="@{ viewModel.posterUrl }"
+                        android:src="@drawable/tomato"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="100dp"
+                        android:scaleType="fitXY" />
+
+                    <RelativeLayout
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_margin="8dp">
+
+                        <ImageView
+                            android:id="@+id/heart_btn"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_centerHorizontal="true"
+                            app:srcCompat="@drawable/heart_gray" />
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="?attr/actionBarSize"
-                    app:layout_collapseMode="pin" />
+                    android:layout_height="?android:attr/actionBarSize"
+                    android:scrollbarSize="24dp"
+                    android:titleTextColor="@color/colorWhite"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    app:titleMarginStart="32dp" />
+
 
             </android.support.design.widget.CollapsingToolbarLayout>
 
         </android.support.design.widget.AppBarLayout>
+
 
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/nestedScrollView"
@@ -68,85 +117,105 @@
                 android:paddingTop="@dimen/margin_padding_size_medium"
                 android:visibility="@{ viewModel.isMovieLoading ? View.GONE : View.VISIBLE }">
 
-                <!-- tagline -->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@{ viewModel.movieTagline }"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textStyle="italic"
-                    tools:text="Awesome tagline" />
-
-                <!-- Rating Layout -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_padding_size_medium"
-                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <!-- average rating bar -->
-                    <android.support.v7.widget.AppCompatRatingBar
-                        style="@style/Base.Widget.AppCompat.RatingBar.Small"
+
+                    <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:clickable="false"
-                        android:max="10"
-                        android:numStars="5"
-                        android:rating="@{ viewModel.voteAverage }"
-                        android:stepSize="0.1"
-                        tools:rating="4.5" />
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="16dp"
+                        android:gravity="center">
 
-                    <!-- average rating text -->
-                    <TextView
-                        style="@style/TextAppearance.AppCompat.Body1"
+                        <ImageView
+                            android:id="@+id/rating_imv"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@drawable/rating" />
+
+                        <TextView
+                            style="@style/MediumText"
+                            android:layout_below="@+id/rating_imv"
+                            android:layout_marginTop="4dp"
+                            android:text='@{ String.valueOf(viewModel.voteAverage) }'
+                            android:textColor="@color/colorBlack"
+                            tools:text="4.5" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/margin_padding_size_medium"
-                        android:layout_marginLeft="@dimen/margin_padding_size_medium"
-                        android:layout_marginRight="@dimen/margin_padding_size_medium"
-                        android:layout_marginStart="@dimen/margin_padding_size_medium"
-                        android:text='@{ String.valueOf(viewModel.voteAverage) }'
-                        tools:text="4.5" />
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="16dp"
+                        android:gravity="center">
 
-                    <!-- divider -->
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="@dimen/margin_padding_size_medium"
-                        android:layout_marginLeft="@dimen/margin_padding_size_medium"
-                        android:layout_marginRight="@dimen/margin_padding_size_medium"
-                        android:layout_marginStart="@dimen/margin_padding_size_medium"
-                        android:background="#000000" />
+                        <ImageView
+                            android:id="@+id/imdb_imv"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@drawable/imdb" />
 
-                    <!-- rating count -->
-                    <TextView
-                        style="@style/TextAppearance.AppCompat.Body1"
+                        <TextView
+                            style="@style/MediumText"
+                            android:layout_below="@+id/imdb_imv"
+                            android:layout_marginTop="4dp"
+                            android:text='@{ String.valueOf(viewModel.voteAverage) }'
+                            android:textColor="@color/colorBlack"
+                            tools:text="4.5" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin_padding_size_medium"
-                        android:layout_marginStart="@dimen/margin_padding_size_medium"
-                        android:text='@{ String.valueOf(viewModel.voteCount) }'
-                        tools:text="1000 votes" />
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="16dp"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:id="@+id/tomato_imv"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@drawable/tomato" />
+
+                        <TextView
+                            style="@style/MediumText"
+                            android:layout_below="@+id/tomato_imv"
+                            android:layout_marginTop="4dp"
+                            android:text='@{ String.valueOf(viewModel.voteAverage) }'
+                            android:textColor="@color/colorBlack"
+                            tools:text="4.5" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="16dp"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:id="@+id/popcorn_imv"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@drawable/popcorn" />
+
+                        <TextView
+                            style="@style/MediumText"
+                            android:layout_below="@+id/popcorn_imv"
+                            android:layout_marginTop="4dp"
+                            android:text='@{ String.valueOf(viewModel.voteAverage) }'
+                            android:textColor="@color/colorBlack"
+                            tools:text="4.5" />
+
+                    </RelativeLayout>
 
                 </LinearLayout>
-
-                <!-- Released date -->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_padding_size_medium"
-                    android:text="@{ viewModel.movieReleaseDate }"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    tools:text="Released: 24/12/2000" />
-
-                <!-- Overview prompt -->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_padding_size_medium"
-                    android:text="@string/prompt_overview"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                 <!-- Overview  -->
                 <TextView

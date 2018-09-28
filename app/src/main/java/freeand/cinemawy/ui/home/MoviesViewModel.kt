@@ -14,18 +14,14 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 
-class MoviesViewModel(context: Context, val mMoviesRepository: MoviesRepository) : BaseObservable() {
+class MoviesViewModel( val mMoviesRepository: MoviesRepository) : BaseObservable() {
 
     // observable fields on the
-    val movies: ObservableList<Movie> = ObservableArrayList()
+    lateinit var movies : ObservableList<Movie>
 
 
     val emptyViewShowing = ObservableBoolean(false)
-    val mContext: Context
 
-    init {
-        mContext = context.applicationContext
-    }
 
     fun start() {
         discoverMovies(movies.isEmpty())

@@ -17,7 +17,7 @@ import android.databinding.ObservableBoolean
  * Base ViewModel for the movie.
  */
 
-open class MovieViewModel : BaseObservable() {
+open class MovieViewModel( movie: Movie) : BaseObservable() {
 
     private val mObservableMovie = ObservableField<Movie>()
 
@@ -42,7 +42,6 @@ open class MovieViewModel : BaseObservable() {
     set(movie) = mObservableMovie.set(movie)
 
     init {
-
         mObservableMovie.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(observable: Observable, i: Int) {
                 val movie = mObservableMovie.get()
@@ -59,6 +58,8 @@ open class MovieViewModel : BaseObservable() {
                 }
             }
         })
+        mObservableMovie.set(movie)
+
     }
 
 
@@ -71,7 +72,8 @@ open class MovieViewModel : BaseObservable() {
      * @return the poster url
      */
     private fun getPosterUrl(movie: Movie): String {
-        return "https://image.tmdb.org/t/p/w342" + movie.poster_path!!
+        //"https://image.tmdb.org/t/p/w342" +
+        return movie.poster_path!!
     }
 
     private fun getBackdropUrl(movie: Movie): String {

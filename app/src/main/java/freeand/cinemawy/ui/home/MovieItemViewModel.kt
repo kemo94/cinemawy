@@ -21,13 +21,13 @@ import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 
 
-class MovieItemViewModel : MovieViewModel() {
+class MovieItemViewModel  {
 
     fun clickMovieItem() {
-        val movie = movie
-        if (movie != null) {
+      //  val movie = movie
+      //  if (movie != null) {
             //val intent = Intent(this,MovieActivity::class.java)
             //activity.startActivity(intent)
-        }
+       // }
     }
 }
